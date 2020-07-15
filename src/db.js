@@ -5,7 +5,7 @@ const options = {
   useUnifiedTopology: true,
 };
 
-mongoose.connect('mongodb://localhost:27017/users', options);
+mongoose.connect(process.env.SERVER_URL, options);
 
 const { connection } = mongoose;
 
