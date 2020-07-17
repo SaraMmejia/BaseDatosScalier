@@ -2,17 +2,25 @@ const { Schema, model } = require('mongoose');
 
 const postSchema = new Schema(
   {
-    picture: {
+    image: {
       type: String,
-      required: [true, 'Picture es un campo requerido'],
+      required: [true, 'Imagen es un campo requerido'],
     },
-    name: {
+    title: {
       type: String,
       required: [true, 'Name es un campo requerido'],
+      minlength: [2, 'El título debe tener más de 2 caracteres'],
+      maxlength: [15, 'El títilo debe tener menos de 15 caracteres'],
+    },
+    tags: {
+      type: String,
+      enum: ['Animación 3D', 'Interiorismo', 'Casas', 'Edificios', 'Clásicos'],
     },
     description: {
       type: String,
       required: [true, 'Description es un campo requerido'],
+      minlength: [2, 'El título debe tener más de 5 caracteres'],
+      maxlength: [15, 'El títilo debe tener menos de 50 caracteres'],
     },
   },
   {
@@ -20,6 +28,6 @@ const postSchema = new Schema(
   }
 );
 
-const Post = model(Post, postSchema);
+const Post = model('Post', postSchema);
 
 module.exports = Post;
