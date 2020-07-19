@@ -22,6 +22,9 @@ const postSchema = new Schema(
       minlength: [2, 'El título debe tener más de 5 caracteres'],
       maxlength: [15, 'El títilo debe tener menos de 50 caracteres'],
     },
+    owner: {
+      type: String,
+    },
   },
   {
     timestamps: true,

@@ -13,29 +13,31 @@ module.exports = {
     }
   },
 
+  async listPost(req, res) {
+    try {
+      const post = await Post.find({ owner: req.user.id });
+      res.status(200).json(post);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+
   async create(req, res) {
     try {
       const data = req.body;
       const post = await Post.create({
-        image: data.image,
+        image: data.file.url,
         title: data.title,
         tags: data.tags,
         description: data.description,
+        owner: req.user.id,
       });
       res.status(200).json(post);
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
   },
-  // async create(req, res) {
-  //   try {
-  //     const { file, ...data } = req.body;
-  //     const post = await Post.create({ ...data, image: file.secure_url });
-  //     res.status(200).json(product);
-  //   } catch (error) {
-  //     res.status(400).json({ message: error.message });
-  //   }
-  // },
+
   async show(req, res) {
     try {
       const { id } = req.params;
@@ -47,15 +49,26 @@ module.exports = {
   },
   async edit(req, res) {
     try {
-      console.log('Edit');
       const { id } = req.params;
-      console.log('id', id);
       const data = req.body;
+      console.log('Data es igual a:', req.body);
       const options = {
         new: true,
-        useFindAndModify: false,
+        useFindAndModify: false, // Este es el Id del User para poder identidicar quien monto los Posts
       };
-      const post = await Post.findByIdAndUpdate(id, data, options);
+
+      const test = {
+        title: data.title,
+        tags: data.tags,
+        description: data.description,
+        owner: req.user.id,
+      };
+      if (data.file.url) {
+        test.image = data.file.url;
+      }
+      console.log(test);
+
+      const post = await Post.findByIdAndUpdate(id, test, options);
       res.status(200).json(post);
     } catch (error) {
       res.status(400).json({ message: error.message });
