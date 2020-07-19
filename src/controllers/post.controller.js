@@ -56,7 +56,6 @@ module.exports = {
         new: true,
         useFindAndModify: false, // Este es el Id del User para poder identidicar quien monto los Posts
       };
-
       const test = {
         title: data.title,
         tags: data.tags,
@@ -66,8 +65,6 @@ module.exports = {
       if (data.file.url) {
         test.image = data.file.url;
       }
-      console.log(test);
-
       const post = await Post.findByIdAndUpdate(id, test, options);
       res.status(200).json(post);
     } catch (error) {
