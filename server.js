@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const userRouter = require('./src/routes/user');
 const loginRouter = require('./src/routes/login');
 const postRouter = require('./src/routes/post');
+const commentController = require('./src/routes/comment');
 const { formData } = require('./src/utils/middlewareBusBoy');
 
 const app = express(); //inicializa el servidor
@@ -16,6 +17,7 @@ app.use(morgan('dev'));
 app.use('/', loginRouter);
 app.use('/users', userRouter);
 app.use('/posts', postRouter);
+app.use('/comments', commentController);
 
 const port = process.env.PORT || 8081;
 app.listen(port, () => console.log(`App running on http://localhost:${port}`));

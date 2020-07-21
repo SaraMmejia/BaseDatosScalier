@@ -20,7 +20,7 @@ const postSchema = new Schema(
       type: String,
       required: [true, 'Description es un campo requerido'],
       minlength: [2, 'El título debe tener más de 5 caracteres'],
-      maxlength: [15, 'El títilo debe tener menos de 50 caracteres'],
+      maxlength: [500, 'El títilo debe tener menos de 500 caracteres'],
     },
     owner: {
       type: String,

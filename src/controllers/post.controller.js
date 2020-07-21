@@ -51,7 +51,6 @@ module.exports = {
     try {
       const { id } = req.params;
       const data = req.body;
-      console.log('Data es igual a:', req.body);
       const options = {
         new: true,
         useFindAndModify: false, // Este es el Id del User para poder identidicar quien monto los Posts
