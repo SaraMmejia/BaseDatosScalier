@@ -11,7 +11,7 @@ module.exports = {
     req.user = jwt.verify(token, process.env.SECRET);
     const user = await User.findById(req.user.id);
     req.user.userName = user.userName;
-    console.log('user', user);
+
     next();
   },
 };

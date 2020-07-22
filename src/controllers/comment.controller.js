@@ -20,7 +20,6 @@ module.exports = {
         postId: req.body.postId, // por que data.postId?
         ownerName: req.user.userName,
       });
-      console.log('UserName', req.user.userName);
 
       res.status(200).json(comment);
     } catch (error) {
