@@ -1,4 +1,7 @@
 const Post = require('../models/post.model');
+const Comment = require('../models/comment.model');
+const Like = require('../models/like.model');
+
 const { create } = require('../models/user.model');
 
 //CRUD
@@ -7,6 +10,22 @@ module.exports = {
   async list(req, res) {
     try {
       const post = await Post.find();
+
+      let newPosts = [];
+      for (let i = 0; i < post.length; i++) {
+        let comments = await Comment.find({ postId: post[i]._id });
+        post[i] = post[i].toJSON();
+        post[i].comments = comments.length;
+        let likes = await Like.find({ postId: post[i]._id });
+        post[i].likes = likes.length;
+        likes = await Like.find({ postId: post[i]._id, owner: req.user.id });
+        let liked = false;
+        if (likes.length >= 1) {
+          liked = true;
+        }
+        post[i].liked = liked;
+      }
+
       res.status(200).json(post);
     } catch (error) {
       res.status(500).json({ message: error.message });
