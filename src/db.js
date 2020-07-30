@@ -5,7 +5,7 @@ const options = {
   useUnifiedTopology: true,
 };
 
-mongoose.connect(process.env.SERVER_URL, options);
+mongoose.connect(process.env.MONGO_URI, options);
 
 const { connection } = mongoose;
 
