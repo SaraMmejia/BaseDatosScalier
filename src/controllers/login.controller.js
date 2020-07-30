@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 
@@ -11,7 +11,7 @@ module.exports = {
         throw Error('El usuario no existe');
       }
 
-      const isValid = await bcrypt.compare(req.body.password, user.password);
+      const isValid = await bcryptjs.compare(req.body.password, user.password);
 
       if (!isValid) {
         throw Error('Usuario o contraseña invalida');
